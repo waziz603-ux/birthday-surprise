@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Surprise 🎉</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    color: white;
+    text-align: center;
+  }
+
+  .box {
+    display: none;
+    animation: fadeIn 1.5s ease forwards;
+  }
+
+  h1 {
+    font-size: 50px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 24px;
+  }
+
+  button {
+    padding: 15px 35px;
+    font-size: 20px;
+    border: none;
+    border-radius: 40px;
+    background: white;
+    color: #ff4f81;
+    cursor: pointer;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+  }
+</style>
+</head>
+
+<body>
+
+<button id="startBtn">🎁 Tekan Sini 🎁</button>
+
+<div class="box" id="surprise">
+  <h1>🎂 Happy Birthday, <span id="name">NAMA_DIA</span> 🎉</h1>
+  <p>
+    Semoga kau dalam keadaan sihat baik bersama keluarga 😊<br>
+    Terima kasih sebab jadikan aku sebagai kawan kau ❤️<br>
+    Semoga semua impian kau tercapai ✨
+    <p>
+  Aku minta maaf atas semua yang berlaku 😔<br>
+  Kalau diberi peluang, aku janji akan jaga hati kau dengan lebih baik ❤️<br><br>
+  Aku harap kita boleh kembali sama-sama 🤍
+</p>
+
+  </p>
+</div>
+
+<audio id="music" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti"></canvas>
+
+<script>
+  const btn = document.getElementById("startBtn");
+  const box = document.getElementById("surprise");
+  const music = document.getElementById("music");
+
+  btn.onclick = () => {
+    btn.style.display = "none";
+    box.style.display = "block";
+    music.play();
+    startConfetti();
+  };
+
+  const canvas = document.getElementById("confetti");
+  const ctx = canvas.getContext("2d");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let confetti = [];
+
+  function startConfetti() {
+    for (let i = 0; i < 150; i++) {
+      confetti.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 6 + 2,
+        d: Math.random() * 5 + 1
+      });
+    }
+    draw();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(c => {
+      ctx.beginPath();
+      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+      ctx.fillStyle = "white";
+      ctx.fill();
+      c.y += c.d;
+      if (c.y > canvas.height) c.y = 0;
+    });
+    requestAnimationFrame(draw);
+  }
+</script>
+
+</body>
+</html>
