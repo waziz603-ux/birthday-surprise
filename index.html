@@ -1,130 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Surprise 🎉</title>
+<title>Untuk Awak 🤍</title>
 
 <style>
   body {
     margin: 0;
     height: 100vh;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
+    font-family: Arial, sans-serif;
     overflow: hidden;
-    color: white;
     text-align: center;
+    color: #fff;
   }
 
-  .box {
+  .container {
+    max-width: 600px;
+    padding: 30px;
     display: none;
-    animation: fadeIn 1.5s ease forwards;
+    animation: fadeIn 1.8s ease forwards;
   }
 
   h1 {
-    font-size: 50px;
-    margin-bottom: 10px;
+    font-size: 40px;
+    margin-bottom: 15px;
   }
 
   p {
-    font-size: 24px;
+    font-size: 20px;
+    line-height: 1.6;
   }
 
   button {
-    padding: 15px 35px;
+    padding: 15px 40px;
     font-size: 20px;
     border: none;
     border-radius: 40px;
     background: white;
-    color: #ff4f81;
+    color: #d16ba5;
     cursor: pointer;
   }
 
+  button:hover {
+    background: #ffe6f0;
+  }
+
   @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.8); }
+    from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
   }
 
-  canvas {
+  .heart {
     position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+    color: rgba(255,255,255,0.8);
+    animation: floatUp 6s linear infinite;
+  }
+
+  @keyframes floatUp {
+    from { transform: translateY(100vh); }
+    to { transform: translateY(-10vh); }
   }
 </style>
 </head>
 
 <body>
 
-<button id="startBtn">🎁 Tekan Sini 🎁</button>
+<button id="start">🤍 Tekan Perlahan-lahan 🤍</button>
 
-<div class="box" id="surprise">
-  <h1>🎂 Happy Birthday, <span id="name">NAMA_DIA</span> 🎉</h1>
+<div class="container" id="content">
+  <h1>Untuk <span id="name">mMaizura_Alisha</span> 🤍</h1>
+
   <p>
-    Semoga kau dalam keadaan sihat baik bersama keluarga 😊<br>
-    Terima kasih sebab jadikan aku sebagai kawan kau ❤️<br>
-    Semoga semua impian kau tercapai ✨
-    <p>
-  Aku minta maaf atas semua yang berlaku 😔<br>
-  Kalau diberi peluang, aku janji akan jaga hati kau dengan lebih baik ❤️<br><br>
-  Aku harap kita boleh kembali sama-sama 🤍
-</p>
+    Selamat Hari Jadi Amoi <br><br>
 
+    semoga kau dalam keadaan sihat baik bahagia bersama keluarga,<br>
+    semoga segala urusan kau dipermudahkan.<br><br>
+
+    jadilah wanita yang kuat dan berani menghadapi sesuatu perkara,<br>
+    aku selalu doakan kau semua perkara baik akan datang dalam hidup kau 🤍<br><br>
+
+    Aku minta maaf atas kesalahan aku<br>
+    Dan kalau masih ada ruang dalam hati kau,<br>
+    aku ingin baiki semuanya… perlahan-lahan 🌱
   </p>
 </div>
 
 <audio id="music" loop>
-  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3" type="audio/mpeg">
 </audio>
 
-<canvas id="confetti"></canvas>
-
 <script>
-  const btn = document.getElementById("startBtn");
-  const box = document.getElementById("surprise");
+  const startBtn = document.getElementById("start");
+  const content = document.getElementById("content");
   const music = document.getElementById("music");
 
-  btn.onclick = () => {
-    btn.style.display = "none";
-    box.style.display = "block";
+  startBtn.onclick = () => {
+    startBtn.style.display = "none";
+    content.style.display = "block";
     music.play();
-    startConfetti();
+    hearts();
   };
 
-  const canvas = document.getElementById("confetti");
-  const ctx = canvas.getContext("2d");
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  function hearts() {
+    setInterval(() => {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerHTML = "🤍";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.fontSize = Math.random() * 20 + 15 + "px";
+      document.body.appendChild(h);
 
-  let confetti = [];
-
-  function startConfetti() {
-    for (let i = 0; i < 150; i++) {
-      confetti.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 6 + 2,
-        d: Math.random() * 5 + 1
-      });
-    }
-    draw();
-  }
-
-  function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    confetti.forEach(c => {
-      ctx.beginPath();
-      ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-      ctx.fillStyle = "white";
-      ctx.fill();
-      c.y += c.d;
-      if (c.y > canvas.height) c.y = 0;
-    });
-    requestAnimationFrame(draw);
+      setTimeout(() => {
+        h.remove();
+      }, 6000);
+    }, 400);
   }
 </script>
 
 </body>
 </html>
+
